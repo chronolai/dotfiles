@@ -13,3 +13,5 @@ $ git config --global useremail "yout_email"
 :BundleInstall
 ```
 
+## .bash_profile
+

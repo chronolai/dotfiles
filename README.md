@@ -8,3 +8,8 @@ $ git config --global useremail "yout_email"
 
 ## .screenrc
 
+## .vimrc
+```
+:BundleInstall
+```
+

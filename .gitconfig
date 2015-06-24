@@ -1,0 +1,20 @@
+[core]
+	editor = vim
+
+[color]
+	ui = auto 
+	diff = auto
+	status = auto
+	branch = auto
+	log = auto
+
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	df = diff
+	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+[push]
+	default = matching

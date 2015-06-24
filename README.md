@@ -16,7 +16,7 @@ $ git config --global useremail "yout_email"
 
 ## .vimrc
 ```
-:BundleInstall
+:PluginInstall
 ```
 
 ## .bash_profile

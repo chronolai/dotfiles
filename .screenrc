@@ -1,0 +1,15 @@
+defutf8 on
+shell -$SHELL
+startup_message off
+defscrollback = 30000
+msgwait 1
+nethack on
+shelltitle '$ |DEV'
+
+hardstatus alwaysignore
+hardstatus alwayslastline 
+hardstatus alwayslastline '%{= kG} %{w}%-w%{= dB}%n %t%{-}%+w %=%{g}[%{r}%H%{-}][%{B}%m-%d%{-} %{W}%c%{-}]' 
+
+bind "`" select 0
+bindkey "^[l" next
+bindkey "^[h" prev

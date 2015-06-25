@@ -38,6 +38,7 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'majutsushi/tagbar' " sudo apt-get install exuberant-ctags
 NeoBundle 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
 NeoBundle 'mattn/emmet-vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 call neobundle#end()
 filetype plugin indent on
 
@@ -61,12 +62,18 @@ let g:ctrlp_prompt_mappings = {
 	\ 'AcceptSelection("e")': [],
 	\ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
 \ }
- " Gundo
+" Gundo
 let g:gundo_right=1
 " GitGutter
 let g:gitgutter_realtime=1
 let g:gitgutter_enabled=1
 let g:gitgutter_max_signs=50000
+" vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 " ----------------------------------------
 " Key Mapping
@@ -94,6 +101,7 @@ set ai
 set nu
 set ic
 set ru
+set wildmenu
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4

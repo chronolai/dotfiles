@@ -71,15 +71,20 @@ let g:gitgutter_max_signs=50000
 " ----------------------------------------
 " Key Mapping
 " ----------------------------------------
-map <leader>t :TagbarToggle<CR>
 map <leader>n :NERDTreeTabsToggle<CR>
-map <leader>g :GundoToggle<CR>
+map <leader>t :TagbarToggle<CR>
 map <leader>a :!ack-grep 
-map <leader>x :tabnext<CR>
-map <leader>z :tabprev<CR>
-map <leader>b :Gblame<CR>
-map <leader>d :Gdiff<CR>
+map <leader>gd :GundoToggle<CR>
+map <leader>gbl :Gblame<CR>
+map <leader>gdf :Gdiff<CR>
+map <leader>gst :Gstatus<CR>
+map <leader>glg :Glog<CR>
+map <leader>gla :!git la<CR>
 map <C-_> <leader>ci
+map <C-l> :tabnext<CR>
+map <C-h> :tabprev<CR>
+map <C-j> :tabe 
+map <C-k> :q<CR>
 
 " ----------------------------------------
 " Global Setting

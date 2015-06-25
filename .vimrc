@@ -1,47 +1,51 @@
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-	echo "Installing Vundle.."
-	echo ""
+" ----------------------------------------
+" NeoBundle Scripts
+" ----------------------------------------
+let readme=expand('~/.vim/bundle/neobundle.vim/README.md')
+if !filereadable(readme)
+	echo "Installing NeoBundle..\n"
 	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	let iCanHazVundle=0
+	silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 endif
 
-set nocompatible
-filetype off
+if has('vim_starting')
+	if &compatible
+		set nocompatible               " Be iMproved
+	endif
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle'))
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+" Add or remove your Bundles here:
+NeoBundle 'ervandew/supertab'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'vim-javascript'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'airblade/vim-gitgutter'
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'L9'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-call vundle#end()
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'majutsushi/tagbar' " sudo apt-get install exuberant-ctags
+NeoBundle 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
+NeoBundle 'mattn/emmet-vim'
+call neobundle#end()
 filetype plugin indent on
-" Put your non-Plugin stuff after this line
-Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'tomasr/molokai'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'vim-javascript'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'majutsushi/tagbar' " sudo apt-get install exuberant-ctags
-Plugin 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mattn/emmet-vim'
+NeoBundleCheck
 
+" ----------------------------------------
+" Plugin Setting
+" ----------------------------------------
 " NERDTree
 let NERDTreeShowHidden=1
 let g:nerdtree_tabs_autoclose=1
@@ -52,17 +56,21 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:molokai_original=1
 let g:rehash256=1
 " CtrlP
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': [],
-  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-  \ }
-" Gundo
+	\ 'AcceptSelection("e")': [],
+	\ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
+\ }
+ " Gundo
 let g:gundo_right=1
 " GitGutter
 let g:gitgutter_realtime=1
 let g:gitgutter_enabled=1
 let g:gitgutter_max_signs=50000
 
+" ----------------------------------------
+" Key Mapping
+" ----------------------------------------
 map <leader>t :TagbarToggle<CR>
 map <leader>n :NERDTreeTabsToggle<CR>
 map <leader>g :GundoToggle<CR>
@@ -71,33 +79,37 @@ map <leader>x :tabnext<CR>
 map <leader>z :tabprev<CR>
 map <leader>b :Gblame<CR>
 map <leader>d :Gdiff<CR>
-
 map <C-_> <leader>ci
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" ----------------------------------------
+" Global Setting
+" ----------------------------------------
 syntax on
-colorscheme molokai
-set t_Co=256
-set encoding=utf-8
-set fileencodings=utf-8,cp950
-set nocompatible
 set ai
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-set ruler
 set nu
 set ic
 set ru
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set t_Co=256
+set encoding=utf-8
+set fileencodings=utf-8,cp950
+set ruler
 set hlsearch
 set incsearch
 set smartindent
 set cursorline
+set colorcolumn=80
 set list listchars=tab:\¦\ ,trail:.
 set mouse=a
 set ttymouse=xterm2
 set clipboard=unnamedplus " sudo apt-get install vim-gtk
+colorscheme molokai
 
+" ----------------------------------------
+" Customize Function
+" ----------------------------------------
 nnoremap <F12> :call ToggleMouse()<CR>
 function! ToggleMouse()
 	if &mouse == 'a'

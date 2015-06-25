@@ -16,9 +16,8 @@ $ git config --global useremail "yout_email"
 ## .screenrc
 
 ## .vimrc
-```
-:PluginInstall
-```
 
 ## .bash_profile
+
+## .tmux.conf
 

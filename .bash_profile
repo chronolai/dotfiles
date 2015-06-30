@@ -1,6 +1,10 @@
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-alias ll='ls -al --color'
 alias cls='clear'
 
+if [ `uname` == "Darwin" ]; then
+	alias ll='ls -al'
+else
+	alias ll='ls -al --color'
+fi

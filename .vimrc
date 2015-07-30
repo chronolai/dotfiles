@@ -39,6 +39,7 @@ NeoBundle 'majutsushi/tagbar' " sudo apt-get install exuberant-ctags
 NeoBundle 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
 call neobundle#end()
 filetype plugin indent on
 
@@ -87,6 +88,8 @@ map <leader>gdf :Gdiff<CR>
 map <leader>gst :Gstatus<CR>
 map <leader>glg :Glog<CR>
 map <leader>gla :!git la<CR>
+map <leader>bc :CSScomb<CR>
+
 map <C-_> <leader>ci
 map <C-l> :tabnext<CR>
 map <C-h> :tabprev<CR>

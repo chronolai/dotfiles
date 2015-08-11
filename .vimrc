@@ -41,6 +41,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
 NeoBundle 'ntpeters/vim-better-whitespace'
+NeoBundle 'Shutnik/jshint2.vim'
 call neobundle#end()
 filetype plugin indent on
 
@@ -76,6 +77,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_filetypes_blacklist=['vim']
+let jshint2_save=1
 
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 

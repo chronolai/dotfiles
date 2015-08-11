@@ -75,7 +75,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 let g:strip_whitespace_on_save=1
-let g:better_whitespace_filetypes_blacklist=[]
+let g:better_whitespace_filetypes_blacklist=['vim']
 
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 

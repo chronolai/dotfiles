@@ -40,6 +40,7 @@ NeoBundle 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
+NeoBundle 'ntpeters/vim-better-whitespace'
 call neobundle#end()
 filetype plugin indent on
 
@@ -73,7 +74,9 @@ let g:gitgutter_max_signs=50000
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=1
+let g:strip_whitespace_on_save=1
+let g:better_whitespace_filetypes_blacklist=[]
+
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 " ----------------------------------------
@@ -81,7 +84,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 " ----------------------------------------
 map <leader>n :NERDTreeTabsToggle<CR>
 map <leader>t :TagbarToggle<CR>
-map <leader>a :!ack-grep 
 map <leader>gd :GundoToggle<CR>
 map <leader>gbl :Gblame<CR>
 map <leader>gdf :Gdiff<CR>
@@ -89,6 +91,15 @@ map <leader>gst :Gstatus<CR>
 map <leader>glg :Glog<CR>
 map <leader>gla :!git la<CR>
 map <leader>bc :CSScomb<CR>
+map <leader>ttr :ToggleStripWhitespaceOnSave<CR>
+if has("unix")
+	let s:uname = system("uname -s")
+	if match(s:uname, "Darwin") == 0
+		map <leader>a :!ack 
+	else
+		map <leader>a :!ack-grep 
+	endif
+endif
 
 map <C-_> <leader>ci
 map <C-l> :tabnext<CR>

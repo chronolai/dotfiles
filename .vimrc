@@ -42,6 +42,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
 NeoBundle 'ntpeters/vim-better-whitespace'
 NeoBundle 'Shutnik/jshint2.vim'
+NeoBundle 'mileszs/ack.vim'
 call neobundle#end()
 filetype plugin indent on
 

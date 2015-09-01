@@ -95,14 +95,7 @@ map <leader>glg :Glog<CR>
 map <leader>gla :!git la<CR>
 map <leader>bc :CSScomb<CR>
 map <leader>ttr :ToggleStripWhitespaceOnSave<CR>
-if has("unix")
-	let s:uname = system("uname -s")
-	if match(s:uname, "Darwin") == 0
-		map <leader>a :!ack 
-	else
-		map <leader>a :!ack-grep 
-	endif
-endif
+map <leader>a :Ack 
 
 map <C-_> <leader>ci
 map <C-l> :tabnext<CR>

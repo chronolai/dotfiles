@@ -10,6 +10,8 @@ $ ./setup.sh
 
 ## .bash_profile
 
+## .zshrc
+
 ## .gitconfig
 
 ## .vimrc

@@ -1,6 +1,3 @@
-export PATH="$PATH:$HOME/.tmuxifier/bin"
-eval "$(tmuxifier init -)"
-
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 

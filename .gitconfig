@@ -2,7 +2,7 @@
 	editor = vim
 
 [color]
-	ui = auto 
+	ui = auto
 	diff = auto
 	status = auto
 	branch = auto

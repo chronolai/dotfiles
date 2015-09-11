@@ -96,6 +96,7 @@ map <leader>gla :!git la<CR>
 map <leader>bc :CSScomb<CR>
 map <leader>ttr :ToggleStripWhitespaceOnSave<CR>
 map <leader>a :Ack 
+map <leader>rr :%s/\r//g<CR>
 
 map <C-_> <leader>ci
 map <C-l> :tabnext<CR>
@@ -128,6 +129,7 @@ set list listchars=tab:\¦\ ,trail:.
 set mouse=a
 set ttymouse=xterm2
 set clipboard=unnamedplus " sudo apt-get install vim-gtk
+set ffs=unix
 colorscheme molokai
 
 " ----------------------------------------

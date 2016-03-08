@@ -130,6 +130,7 @@ set mouse=a
 set ttymouse=xterm2
 set clipboard=unnamedplus " sudo apt-get install vim-gtk
 set ffs=unix
+set diffopt+=vertical
 colorscheme molokai
 
 " ----------------------------------------

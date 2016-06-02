@@ -3,7 +3,7 @@
 ## Setup
 ``` shell
 $ cd ~
-$ git clone https://github.com/chronolai/dotfiles.git .dotfiles
+$ git clone git@github.com:chronolai/dotfiles.git .dotfiles
 $ cd .dotfiles
 $ ./setup.sh
 ```

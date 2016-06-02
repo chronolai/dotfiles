@@ -1,5 +1,6 @@
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore
 
 [color]
 	ui = auto
@@ -16,5 +17,7 @@
 	df = diff
 	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	laa= log --graph --decorate --abbrev-commit --all --pretty='format:%C(auto)%h %an%x09%d %s'
+
 [push]
-	default = matching
+	default = simple
+

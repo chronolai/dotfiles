@@ -43,6 +43,8 @@ NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
 NeoBundle 'ntpeters/vim-better-whitespace'
 NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'rhysd/vim-clang-format'
+NeoBundle 'mindriot101/vim-yapf'
 call neobundle#end()
 filetype plugin indent on
 
@@ -80,6 +82,9 @@ let g:indent_guides_auto_colors = 0
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_filetypes_blacklist=['vim']
 let jshint2_save=1
+" clang format
+let g:clang_format#command = "clang-format-3.8"
+let g:clang_format#detect_style_file = 1
 
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
@@ -125,7 +130,7 @@ set hlsearch
 set incsearch
 set smartindent
 set cursorline
-set colorcolumn=80
+set colorcolumn=120
 set list listchars=tab:\¦\ ,trail:.
 set mouse=a
 set ttymouse=xterm2

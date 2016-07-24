@@ -1,0 +1,57 @@
+GIT_USER_NAME=`git config --global user.name`
+GIT_USER_EMAIL=`git config --global user.email`
+TIMESTAMP=`date "+%Y-%m-%d-%H:%M:%S"`
+BACKUP_DIR=backups/backup_${TIMESTAMP}
+
+.PHONY: all backup restore install update clean bash git vim tmux
+
+all: backup install
+
+backup:
+	@mkdir -p ${BACKUP_DIR}
+	@if [ -e ${HOME}/.gitconfig ]; then cp ${HOME}/.gitconfig ${BACKUP_DIR}; fi
+	@if [ -e ${HOME}/.vimrc ]; then cp ${HOME}/.vimrc ${BACKUP_DIR}; fi
+	@if [ -e ${HOME}/.tmux.conf ]; then cp ${HOME}/.tmux.conf ${BACKUP_DIR}; fi
+
+restore:
+	@echo restore
+
+install: git vim tmux zsh
+
+update:
+
+clean:
+
+bash:
+
+git:
+	@echo " >> Setup git"
+	@read -p "user.name [${GIT_USER_NAME}]: " input_name; git config --global user.name "$${input_name:-$(GIT_USER_NAME)}"
+	@read -p "user.email [${GIT_USER_EMAIL}]: " input_email; git config --global user.email "$${input_email:-$(GIT_USER_EMAIL)}"
+	@git config --global core.editor "vim"
+	@git config --global color.ui "auto"
+	@git config --global color.diff "auto"
+	@git config --global color.status "auto"
+	@git config --global color.branch "auto"
+	@git config --global color.log "auto"
+	@git config --global alias.st "status"
+	@git config --global alias.ci "commit"
+	@git config --global alias.co "checkout"
+	@git config --global alias.br "branch"
+	@git config --global alias.df "diff"
+	@git config --global alias.la "log --graph --decorate --pretty=oneline --abbrev-commit --all"
+	@git config --global alias.laa "log --graph --decorate --abbrev-commit --all --pretty='format:%C(auto)%h %an%x09%d %s'"
+	@git config --global push.default "simple"
+	@echo "== .gitconfig =================================================================="
+	@cat ${HOME}/.gitconfig
+	@echo "================================================================================"
+
+vim:
+	@echo " >> Setup VIM"
+	@cp .vimrc ${HOME}
+	@vim +NeoBundleInstall +qall
+
+tmux:
+	@echo " >> Setup Tmux"
+	@cp .tmux.conf ${HOME}
+

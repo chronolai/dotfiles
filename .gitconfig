@@ -21,3 +21,9 @@
 [push]
 	default = simple
 
+[diff]
+	compactionHeuristic = 1
+[pager]
+	log = ~/.dotfiles/diff-highlight | less
+	show = ~/.dotfiles/diff-highlight | less
+	diff = ~/.dotfiles/diff-highlight | less

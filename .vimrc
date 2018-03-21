@@ -26,7 +26,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'vim-javascript'
+"NeoBundle 'vim-javascript'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
@@ -45,6 +45,10 @@ NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'rhysd/vim-clang-format'
 NeoBundle 'mindriot101/vim-yapf'
+NeoBundle 'digitaltoad/vim-pug'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 call neobundle#end()
 filetype plugin indent on
 
@@ -53,6 +57,9 @@ NeoBundleCheck
 " ----------------------------------------
 " Plugin Setting
 " ----------------------------------------
+"
+let g:jsx_ext_required = 0
+let g:jsx_pragma_required = 0
 " NERDTree
 let NERDTreeShowHidden=1
 let g:nerdtree_tabs_autoclose=1
@@ -103,6 +110,10 @@ map <leader>bc :CSScomb<CR>
 map <leader>ttr :ToggleStripWhitespaceOnSave<CR>
 map <leader>a :Ack 
 map <leader>rr :%s/\r//g<CR>
+map <leader>rs :%s/\t/  /g<CR>
+map <leader>s :'<,'>sort u<CR>
+map <leader>st2 :set expandtab ts=2 sts=2 sw=2<CR>
+map <leader>st4 :set expandtab ts=4 sts=4 sw=4<CR>
 
 map <C-_> <leader>ci
 map <C-l> :tabnext<CR>
@@ -149,12 +160,14 @@ function! ToggleMouse()
 		set nonu
 		set mouse-=a
 		set nolist
+		:GitGutterDisable
 		echo "Copy Mode enabled"
 	else
 		set nu
 		set mouse=a
 		set list
 		:NERDTreeTabsOpen
+		:GitGutterEnable
 		execute "normal \<c-w>l"
 		echo "Copy Mode disabled"
 	endif

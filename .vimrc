@@ -1,106 +1,91 @@
 " ----------------------------------------
-" NeoBundle Scripts
+" VimPlug Scripts
 " ----------------------------------------
-let readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-if !filereadable(readme)
-	echo "Installing NeoBundle..\n"
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if has('vim_starting')
-	if &compatible
-		set nocompatible               " Be iMproved
-	endif
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-" Add or remove your Bundles here:
-NeoBundle 'ervandew/supertab'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Lokaltog/vim-powerline'
-"NeoBundle 'vim-javascript'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
-
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'garbas/vim-snipmate'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'majutsushi/tagbar' " sudo apt-get install exuberant-ctags
-NeoBundle 'marijnh/tern_for_vim' " cd ~/.vim/bundle/tern_for_vim ;npm install
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'csscomb/vim-csscomb' " npm install -g csscomb
-NeoBundle 'ntpeters/vim-better-whitespace'
-NeoBundle 'Shutnik/jshint2.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'rhysd/vim-clang-format'
-NeoBundle 'mindriot101/vim-yapf'
-NeoBundle 'digitaltoad/vim-pug'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'mxw/vim-jsx'
-call neobundle#end()
-filetype plugin indent on
-
-NeoBundleCheck
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'tomasr/molokai'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'wakatime/vim-wakatime'
+Plug 'mattn/emmet-vim'
+Plug 'posva/vim-vue'
+call plug#end()
 
 " ----------------------------------------
 " Plugin Setting
 " ----------------------------------------
 "
-let g:jsx_ext_required = 0
-let g:jsx_pragma_required = 0
+" NERDCommenter
+let g:NERDSpaceDelims = 1
 " NERDTree
+let NERDTreeIgnore = ['\.pyc$', '\.sw[po]$']
 let NERDTreeShowHidden=1
 let g:nerdtree_tabs_autoclose=1
-let NERDTreeIgnore = ['\.pyc$', '\.sw[po]$']
 " NERDTreeTabs
-let g:nerdtree_tabs_open_on_console_startup=1
+" let g:nerdtree_tabs_open_on_console_startup=1
 let g:nerdtree_tabs_focus_on_files=1
+" Airline
+let g:airline_theme='molokai'
 " Molokai
 let g:molokai_original=1
 let g:rehash256=1
-" CtrlP
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_prompt_mappings = {
-	\ 'AcceptSelection("e")': [],
-	\ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-\ }
-" Gundo
-let g:gundo_right=1
-" GitGutter
-let g:gitgutter_realtime=1
-let g:gitgutter_enabled=1
-let g:gitgutter_max_signs=50000
 " vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+" vim-better-whitespace
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_filetypes_blacklist=['vim']
-let jshint2_save=1
-" clang format
-let g:clang_format#command = "clang-format-3.8"
-let g:clang_format#detect_style_file = 1
+" GitGutter
+let g:gitgutter_realtime=1
+let g:gitgutter_enabled=1
+let g:gitgutter_max_signs=50000
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+" fzf
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+let g:fzf_action = { 'enter': 'tab split' }
 
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+let g:fzf_colors =
+      \{
+      \  'fg':      ['fg', 'Normal'],
+      \  'bg':      ['bg', 'Normal'],
+      \  'hl':      ['fg', 'Comment'],
+      \  'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \  'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \  'hl+':     ['fg', 'Statement'],
+      \  'info':    ['fg', 'PreProc'],
+      \  'border':  ['fg', 'Ignore'],
+      \  'prompt':  ['fg', 'Conditional'],
+      \  'pointer': ['fg', 'Exception'],
+      \  'marker':  ['fg', 'Keyword'],
+      \  'spinner': ['fg', 'Label'],
+      \  'header':  ['fg', 'Comment']
+      \}
 
 " ----------------------------------------
 " Key Mapping
 " ----------------------------------------
-map <leader>n :NERDTreeTabsToggle<CR>
-map <leader>t :TagbarToggle<CR>
-map <leader>gd :GundoToggle<CR>
+map <leader>n :call ToggleNERDTree()<CR>
 map <leader>gbl :Gblame<CR>
 map <leader>gdf :Gdiff<CR>
 map <leader>gst :Gstatus<CR>
@@ -120,28 +105,32 @@ map <C-l> :tabnext<CR>
 map <C-h> :tabprev<CR>
 map <C-j> :tabe 
 map <C-k> :q<CR>
+map <C-p> :FZF<CR>
 
+nnoremap <F12> :call ToggleMouse()<CR>
 " ----------------------------------------
 " Global Setting
 " ----------------------------------------
 syntax on
-set ai
-set nu
-set ic
-set ru
-set wildmenu
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set autoindent
+set number
+set ignorecase
+set ruler
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set t_Co=256
 set encoding=utf-8
 set fileencodings=utf-8,cp950
-set ruler
 set hlsearch
 set incsearch
+set showcmd
 set smartindent
 set cursorline
 set colorcolumn=120
+set textwidth=120
+set showtabline=2
 set list listchars=tab:\¦\ ,trail:.
 set mouse=a
 set ttymouse=xterm2
@@ -153,22 +142,35 @@ colorscheme molokai
 " ----------------------------------------
 " Customize Function
 " ----------------------------------------
-nnoremap <F12> :call ToggleMouse()<CR>
+
+function! IsNerdTreeEnabled()
+  return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+endfunction
+
 function! ToggleMouse()
-	if &mouse == 'a'
-		:only
-		set nonu
-		set mouse-=a
-		set nolist
-		:GitGutterDisable
-		echo "Copy Mode enabled"
-	else
-		set nu
-		set mouse=a
-		set list
-		:NERDTreeTabsOpen
-		:GitGutterEnable
-		execute "normal \<c-w>l"
-		echo "Copy Mode disabled"
-	endif
+  if &mouse == 'a'
+    if winnr('$') > 1
+      :only
+    endif
+    set nonu
+    set mouse-=a
+    set nolist
+    :GitGutterDisable
+    echo "Copy Mode enabled"
+  else
+    set nu
+    set mouse=a
+    set list
+    :GitGutterEnable
+    echo "Copy Mode disabled"
+  endif
+endfunction
+
+function! ToggleNERDTree()
+  if IsNerdTreeEnabled() 
+    :NERDTreeClose
+  else
+    let g:NERDTreeWinSize=31
+    :NERDTree
+  endif
 endfunction

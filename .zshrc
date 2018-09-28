@@ -91,3 +91,5 @@ else
 	alias ll='ls -al --color'
 fi
 eval $(thefuck --alias)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

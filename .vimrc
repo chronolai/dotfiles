@@ -14,6 +14,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tomasr/molokai'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
@@ -24,12 +25,30 @@ Plug 'airblade/vim-gitgutter'
 Plug 'wakatime/vim-wakatime'
 Plug 'mattn/emmet-vim'
 Plug 'posva/vim-vue'
+Plug 'scrooloose/syntastic'
+Plug 'Chiel92/vim-autoformat'
+Plug 'leafgarland/typescript-vim'
+Plug 'chemzqm/vim-jsx-improve'
 call plug#end()
 
 " ----------------------------------------
 " Plugin Setting
 " ----------------------------------------
 "
+let g:syntastic_javascript_checkers = ['eslint']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:formatdef_eslint = '"SRC=eslint-temp-${RANDOM}.js; cat - >$SRC; eslint --fix $SRC >/dev/null 2>&1; cat $SRC | perl -pe \"chomp if eof\"; rm -f $SRC"'
+let g:formatters_javascript = ['eslint']
+
 " NERDCommenter
 let g:NERDSpaceDelims = 1
 " NERDTree
@@ -50,6 +69,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 " vim-better-whitespace
+let g:strip_whitespace_confirm=0
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_filetypes_blacklist=['vim']
 " GitGutter
@@ -63,7 +83,11 @@ else
 endif
 " fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-let g:fzf_action = { 'enter': 'tab split' }
+let g:fzf_action = {
+  \ 'enter': 'tab split',
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 let g:fzf_colors =
       \{
@@ -81,6 +105,13 @@ let g:fzf_colors =
       \  'spinner': ['fg', 'Label'],
       \  'header':  ['fg', 'Comment']
       \}
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
 
 " ----------------------------------------
 " Key Mapping
@@ -106,6 +137,7 @@ map <C-h> :tabprev<CR>
 map <C-j> :tabe 
 map <C-k> :q<CR>
 map <C-p> :FZF<CR>
+map <C-o> :Rg<CR>
 
 nnoremap <F12> :call ToggleMouse()<CR>
 " ----------------------------------------

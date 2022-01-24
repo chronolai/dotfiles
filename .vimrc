@@ -22,13 +22,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 Plug 'mattn/emmet-vim'
 Plug 'posva/vim-vue'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'Chiel92/vim-autoformat'
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 Plug 'chemzqm/vim-jsx-improve'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript'
+" Plug 'nvie/vim-flake8'
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 " ----------------------------------------
@@ -36,6 +40,7 @@ call plug#end()
 " ----------------------------------------
 "
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['flake8']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -106,9 +111,16 @@ let g:fzf_colors =
       \  'header':  ['fg', 'Comment']
       \}
 
-command! -bang -nargs=* Rg
+command! -bang -nargs=* Rgi
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
@@ -127,7 +139,8 @@ map <leader>ttr :ToggleStripWhitespaceOnSave<CR>
 map <leader>a :Ack 
 map <leader>rr :%s/\r//g<CR>
 map <leader>rs :%s/\t/  /g<CR>
-map <leader>s :'<,'>sort u<CR>
+map <leader>s :'<,'>sort<CR>
+map <leader>su :'<,'>sort u<CR>
 map <leader>st2 :set expandtab ts=2 sts=2 sw=2<CR>
 map <leader>st4 :set expandtab ts=4 sts=4 sw=4<CR>
 
@@ -137,7 +150,8 @@ map <C-h> :tabprev<CR>
 map <C-j> :tabe 
 map <C-k> :q<CR>
 map <C-p> :FZF<CR>
-map <C-o> :Rg<CR>
+map <C-o> :Rgi<CR>
+map <C-i> :Rg<CR>
 
 nnoremap <F12> :call ToggleMouse()<CR>
 " ----------------------------------------
@@ -166,9 +180,9 @@ set showtabline=2
 set list listchars=tab:\¦\ ,trail:.
 set mouse=a
 set ttymouse=xterm2
-set clipboard=unnamedplus " sudo apt-get install vim-gtk
+set clipboard=unnamed " sudo apt-get install vim-gtk
 set ffs=unix
-set diffopt+=vertical
+set diffopt=vertical
 colorscheme molokai
 
 " ----------------------------------------

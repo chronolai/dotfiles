@@ -8,11 +8,15 @@ echo " \____|_| |_|_|  \___/|_| |_|\___(_)____/ \___/ \__|_| |_|_|\___||___/ "
 echo "  ===================================================================  "
 echo "                                                                       "
 
-dir_base=$(cd $(dirname $0);pwd)
-cd $dir_base
+dir_base=$(CDPATH= cd "$(dirname "$0")" && pwd -P)
+cd "$dir_base" || exit 1
 
 list_ln="
 .bash_profile
+.bashrc
+.profile
+.shellrc
+.zprofile
 .zshrc
 .gitconfig
 .gitignore
@@ -20,20 +24,14 @@ list_ln="
 .tmux.conf
 "
 for file in $list_ln; do
-	ln -sf $dir_base/$file ~/$file
+	ln -sfn "$dir_base/$file" "$HOME/$file"
 done
 
 git stash
 git pull origin master
 git stash pop
 
-# git
-echo
-echo " >> Setup git"
-read -p "user.name: " input_name
-read -p "user.email: " input_email
-git config --global user.name "$input_name"
-git config --global user.email "$input_email"
+"$dir_base/setup-git.sh" || exit 1
 
 # vim
 echo

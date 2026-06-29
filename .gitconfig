@@ -34,3 +34,5 @@
 	sslVerify = false
 [pull]
 	ff = only
+[include]
+	path = ~/.gitprofile

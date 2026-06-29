@@ -1,0 +1,10 @@
+alias :q='exit'
+alias cls='clear'
+alias cd2='cd ../../'
+alias cd3='cd ../../../'
+
+case "$(uname -s)" in
+	Darwin) alias ll='ls -al' ;;
+	Linux) alias ll='ls -al --color=auto' ;;
+	*) alias ll='ls -al' ;;
+esac
